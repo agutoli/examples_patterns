@@ -1,8 +1,10 @@
 <?php
 
+//dependence
+include 'Factory/MobileFactory.php';
+
 class MobileStore 
 {
-
     private $MobileFactory = Null;
 
     public function __construct() 

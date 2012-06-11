@@ -5,25 +5,34 @@
  * and open the template in the editor.
  */
 
+//interface 
+include 'MobileFactory/MobileInterface.php';
+
 class MobileFactory {
-    
-    private $Mobile;
     
     public function Create($brand)
     {
-        switch ($brand) {
-            case 'samsung':
-                $this->Mobile = new Samsung();
-                break;
-            case 'nokia':
-                $this->Mobile = new Nokia();
-                break;
-            case 'motorola':
-                $this->Mobile = new Motorola();
-                break;
-            default:
-                throw new Exception('Class does not exist!');
+         //class name
+        $className = ucwords($brand);
+        $filename  = "MobileFactory/{$className}.php";
+        
+        //autoload
+        if ( ! class_exists($className)) {
+            try {
+                include $filename;
+            } catch(Exception $e) {
+                throw new Exception('class not found');
+            }
         }
+        
+        //instance of class 
+        $mobile = new $className;       
+ 
+        if ( ! $mobile instanceof MobileInterface ) {
+            throw new Exception('class must be of type "MobileInterface"');
+        }
+
+        return $mobile;
     }
 }
 
