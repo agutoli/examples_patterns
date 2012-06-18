@@ -1,6 +1,5 @@
 <?php
 /**
- * Component interface.
  * The Client depends only on this abstraction, whatever graph is built using
  * the specializations.
  * @author: Giorgio Sironi
